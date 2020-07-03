@@ -1,4 +1,4 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt, faCheck } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faEdit, faTrashAlt);
+library.add(faEdit, faTrashAlt, faCheck);
