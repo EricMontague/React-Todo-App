@@ -15,7 +15,7 @@ class App extends React.Component {
         { id: 1, description: "Post on social media", isComplete: false },
         {
           id: 2,
-          description: "Turn off the air conditioner",
+          description: "Turn off the air conditioner.",
           isComplete: false
         },
         {
@@ -36,6 +36,7 @@ class App extends React.Component {
     this.filterTasks = this.filterTasks.bind(this);
     this.setFilter = this.setFilter.bind(this);
     this.setQuery = this.setQuery.bind(this);
+    this.cancelUpdate = this.cancelUpdate.bind(this);
   }
 
   handleKeyUp(event) {
@@ -56,7 +57,7 @@ class App extends React.Component {
   updateTask(task) {
     const tasks = this.state.tasks.slice();
     tasks.forEach(taskToUpdate => {
-      if (taskToUpdate.id === task.id) {
+      if (taskToUpdate.id === this.state.currentTask.id) {
         taskToUpdate.description = task.description;
       }
     });
@@ -85,7 +86,7 @@ class App extends React.Component {
   }
 
   setCurrentTask(taskID) {
-    const tasks = this.state.tasks;
+    const tasks = this.state.tasks.slice();
     const currentTask = tasks.find(task => {
       return task.id === taskID;
     });
@@ -97,7 +98,7 @@ class App extends React.Component {
     if (currentTask !== null) {
       return currentTask.description;
     }
-    return null;
+    return "";
   }
 
   filterTasks() {
@@ -126,6 +127,10 @@ class App extends React.Component {
     this.setState({ query });
   }
 
+  cancelUpdate() {
+    this.setState({ mode: "Add" });
+  }
+
   render() {
     return (
       <div className="container">
@@ -135,6 +140,7 @@ class App extends React.Component {
           updateTask={this.updateTask}
           mode={this.state.mode}
           currentTask={() => this.getCurrentTask()}
+          cancelUpdate={this.cancelUpdate}
         />
         <TaskList
           tasks={this.filterTasks()}

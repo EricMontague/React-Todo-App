@@ -8,7 +8,6 @@ class Checkbox extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ checked: event.target.checked });
     this.props.onChange();
   }
 

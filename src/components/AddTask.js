@@ -20,11 +20,13 @@ class AddTask extends React.Component {
         this.props.updateTask(data);
       }
     }
+    userInput.value = "";
   }
 
   render() {
     const labelName = this.props.mode === "Add" ? "New Task" : "Current Task";
-    const buttonText = this.props.mode === "Add" ? "Add Task" : "Update Task";
+    const addBtnText = this.props.mode === "Add" ? "Add Task" : "Update Task";
+    const cancelBtnText = "Cancel";
 
     const title = this.props.mode === "Add" ? "Add Task" : "Edit Task";
     return (
@@ -34,13 +36,24 @@ class AddTask extends React.Component {
           <TextInput
             labelName={labelName}
             onKeyUp={this.props.onKeyUp}
-            getValue={this.props.currentTask}
+            getDefaultValue={this.props.currentTask}
+            mode={this.props.mode}
           />
           <Button
-            value={buttonText}
-            styling={getStyle("btnPrimary")}
+            value={addBtnText}
+            styling={getStyle("addBtn")}
             btnType={"submit"}
           />
+          {this.props.mode === "Edit" ? (
+            <Button
+              value={cancelBtnText}
+              styling={getStyle("cancelBtn")}
+              btnType={"button"}
+              onClick={this.props.cancelUpdate}
+            />
+          ) : (
+            <div></div>
+          )}
         </form>
       </div>
     );

@@ -1,16 +1,18 @@
 import React from "react";
+import getStyle from "../utilities/styles";
 
 function TextInput(props) {
   return (
-    <div className="form-group">
+    <div className="form-group" key={props.getDefaultValue()}>
       <input
         id={props.labelName}
         type="text"
-        onKeyUp={props.onKeyUp}
-        value={props.getValue()}
+        onChange={props.onKeyUp}
+        defaultValue={props.getDefaultValue()}
       />
-      <label>{props.labelName}</label>
-      <small>{props.errorMessage !== "" ? props.errorMessage : ""}</small>
+      <label className={props.mode === "Edit" ? getStyle("labelRaised") : ""}>
+        {props.labelName}
+      </label>
     </div>
   );
 }

@@ -10,18 +10,18 @@ function Task(props) {
       <div className={isComplete ? getStyle("complete") : ""}>
         <Checkbox
           checked={isComplete}
-          onChange={taskID => props.markComplete(id)}
+          onChange={() => props.markComplete(id)}
         />
         {description}
       </div>
       <div className="icon-group">
         <FontAwesomeIcon
           icon={["fas", "edit"]}
-          onClick={taskID => props.setCurrentTask(id)}
+          onClick={() => props.setCurrentTask(id)}
         />
         <FontAwesomeIcon
           icon={["fas", "trash-alt"]}
-          onClick={taskID => props.deleteTask(id)}
+          onClick={() => props.deleteTask(id)}
         />
       </div>
     </li>

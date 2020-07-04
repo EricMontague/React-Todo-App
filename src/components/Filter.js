@@ -9,7 +9,7 @@ function Filter(props) {
         <li key={option}>
           <button
             className={
-              getStyle("btnTransparent") +
+              getStyle("filterBtn") +
               " " +
               (props.filter === option ? getStyle("selected") : "")
             }
@@ -19,21 +19,6 @@ function Filter(props) {
           </button>
         </li>
       ))}
-      {/* <li>
-        <button className={props.styling} onClick={props.changeFilter}>
-          All
-        </button>
-      </li>
-      <li>
-        <button className={props.styling} onClick={props.changeFilter}>
-          Active
-        </button>
-      </li>
-      <li>
-        <button className={props.styling} onClick={props.changeFilter}>
-          Completed
-        </button>
-      </li> */}
     </ul>
   );
 }
