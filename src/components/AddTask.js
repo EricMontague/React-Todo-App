@@ -6,7 +6,12 @@ import getStyle from "../utilities/styles";
 class AddTask extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      inputValue: ""
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleSubmit(event) {
@@ -16,11 +21,22 @@ class AddTask extends React.Component {
       const data = { description: userInput.value };
       if (this.props.mode === "Add") {
         this.props.addTask(data);
+        userInput.nextElementSibling.classList.remove("label-raised");
       } else if (this.props.mode === "Edit") {
         this.props.updateTask(data);
       }
     }
-    userInput.value = "";
+    this.setState({ inputValue: "" });
+  }
+
+  handleChange(event) {
+    this.setState({ inputValue: event.target.value });
+    this.props.onKeyUp(event.target);
+  }
+
+  handleClick(event) {
+    this.setState({ inputValue: "" });
+    this.props.cancelUpdate();
   }
 
   render() {
@@ -35,8 +51,12 @@ class AddTask extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <TextInput
             labelName={labelName}
-            onKeyUp={this.props.onKeyUp}
-            getDefaultValue={this.props.currentTask}
+            onChange={this.handleChange}
+            value={
+              this.state.inputValue === ""
+                ? this.props.currentTask
+                : this.state.inputValue
+            }
             mode={this.props.mode}
           />
           <Button
@@ -49,7 +69,7 @@ class AddTask extends React.Component {
               value={cancelBtnText}
               styling={getStyle("cancelBtn")}
               btnType={"button"}
-              onClick={this.props.cancelUpdate}
+              onClick={this.handleClick}
             />
           ) : (
             <div></div>

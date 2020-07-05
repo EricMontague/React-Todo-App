@@ -200,7 +200,7 @@ h3 {
 .tasks li div:first-child {
   flex: 1;
   word-wrap: break-word;
-  margin-right: 5px;
+  amargin-right: 5px;
 }
 
 .tasks input[type="checkbox"] {

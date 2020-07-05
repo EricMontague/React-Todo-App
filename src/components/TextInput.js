@@ -3,12 +3,12 @@ import getStyle from "../utilities/styles";
 
 function TextInput(props) {
   return (
-    <div className="form-group" key={props.getDefaultValue()}>
+    <div className="form-group">
       <input
         id={props.labelName}
         type="text"
-        onChange={props.onKeyUp}
-        defaultValue={props.getDefaultValue()}
+        value={props.value}
+        onChange={props.onChange}
       />
       <label className={props.mode === "Edit" ? getStyle("labelRaised") : ""}>
         {props.labelName}

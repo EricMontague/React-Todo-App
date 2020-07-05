@@ -39,12 +39,12 @@ class App extends React.Component {
     this.cancelUpdate = this.cancelUpdate.bind(this);
   }
 
-  handleKeyUp(event) {
+  handleKeyUp(input) {
     const labelStyle = getStyle("labelRaised");
-    if (event.target.value !== "") {
-      event.target.nextElementSibling.classList.add(labelStyle);
+    if (input.value !== "") {
+      input.nextElementSibling.classList.add(labelStyle);
     } else {
-      event.target.nextElementSibling.classList.remove(labelStyle);
+      input.nextElementSibling.classList.remove(labelStyle);
     }
   }
 
@@ -69,11 +69,18 @@ class App extends React.Component {
     const newTasks = tasks.filter(task => {
       return task.id !== taskID;
     });
-    this.setState({ tasks: newTasks });
+    if (
+      this.state.currentTask !== null &&
+      this.state.currentTask.id === taskID
+    ) {
+      this.setState({ tasks: newTasks, mode: "Add", currentTask: null });
+    } else {
+      this.setState({ tasks: newTasks });
+    }
   }
 
   deleteAllTasks() {
-    this.setState({ tasks: [] });
+    this.setState({ tasks: [], mode: "Add", currentTask: null });
   }
 
   markComplete(taskID) {
@@ -122,13 +129,13 @@ class App extends React.Component {
   }
 
   setQuery(event) {
-    this.handleKeyUp(event);
+    this.handleKeyUp(event.target);
     const query = event.target.value.toLowerCase();
     this.setState({ query });
   }
 
   cancelUpdate() {
-    this.setState({ mode: "Add" });
+    this.setState({ mode: "Add", currentTask: null });
   }
 
   render() {
@@ -139,7 +146,7 @@ class App extends React.Component {
           addTask={this.addTask}
           updateTask={this.updateTask}
           mode={this.state.mode}
-          currentTask={() => this.getCurrentTask()}
+          currentTask={this.getCurrentTask()}
           cancelUpdate={this.cancelUpdate}
         />
         <TaskList
