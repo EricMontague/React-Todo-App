@@ -51,6 +51,7 @@ class App extends React.Component {
   addTodo(newTodo) {
     const currentTodos = this.state.todos.slice();
     newTodo.id = currentTodos[currentTodos.length - 1].id + 1;
+    newTodo.isComplete = false;
     this.setState({ todos: [...currentTodos, newTodo] });
   }
 
