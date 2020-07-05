@@ -3,8 +3,8 @@ import Checkbox from "./Checkbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import getStyle from "../utilities/styles";
 
-function Task(props) {
-  const { id, description, isComplete } = props.task;
+function TodoItem(props) {
+  const { id, description, isComplete } = props.todo;
   return (
     <li>
       <div className={isComplete ? getStyle("complete") : ""}>
@@ -17,15 +17,15 @@ function Task(props) {
       <div className="icon-group">
         <FontAwesomeIcon
           icon={["fas", "edit"]}
-          onClick={() => props.setCurrentTask(id)}
+          onClick={() => props.setCurrentTodo(id)}
         />
         <FontAwesomeIcon
           icon={["fas", "trash-alt"]}
-          onClick={() => props.deleteTask(id)}
+          onClick={() => props.deleteTodo(id)}
         />
       </div>
     </li>
   );
 }
 
-export default Task;
+export default TodoItem;

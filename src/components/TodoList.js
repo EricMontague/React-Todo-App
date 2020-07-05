@@ -1,32 +1,32 @@
 import React from "react";
 import SearchBox from "./SearchBox";
 import CardFooter from "./CardFooter";
-import Task from "./Task";
+import TodoItem from "./TodoItem";
 
-function TaskList(props) {
+function TodoList(props) {
   const labelName = "Search";
   return (
     <div className="card">
-      <h3 className="card-title-lg">Task List</h3>
+      <h3 className="card-title-lg">Todo List</h3>
       <SearchBox labelName={labelName} onKeyUp={props.setQuery} />
-      <ul className="tasks">
-        {props.tasks.map(task => (
-          <Task
-            key={task.id}
-            task={task}
+      <ul className="todos">
+        {props.todos.map(todo => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
             markComplete={props.markComplete}
-            deleteTask={props.deleteTask}
-            setCurrentTask={props.setCurrentTask}
+            deleteTodo={props.deleteTodo}
+            setCurrentTodo={props.setCurrentTodo}
           />
         ))}
       </ul>
       <CardFooter
         filter={props.filter}
         setFilter={props.setFilter}
-        onClick={props.deleteAllTasks}
+        onClick={props.deleteAllTodos}
       />
     </div>
   );
 }
 
-export default TaskList;
+export default TodoList;

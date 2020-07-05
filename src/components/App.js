@@ -1,17 +1,17 @@
 import React from "react";
-import AddTask from "./AddTask";
-import TaskList from "./TaskList";
+import AddTodoForm from "./AddTodoForm";
+import TodoList from "./TodoList";
 import getStyle from "../utilities/styles";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTask: null,
+      currentTodo: null,
       mode: "Add",
       filter: "All",
       query: "",
-      tasks: [
+      todos: [
         { id: 1, description: "Post on social media", isComplete: false },
         {
           id: 2,
@@ -26,14 +26,14 @@ class App extends React.Component {
       ]
     };
     this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.addTask = this.addTask.bind(this);
-    this.updateTask = this.updateTask.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
-    this.deleteAllTasks = this.deleteAllTasks.bind(this);
+    this.addTodo = this.addTodo.bind(this);
+    this.updateTodo = this.updateTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
+    this.deleteAllTodos = this.deleteAllTodos.bind(this);
     this.markComplete = this.markComplete.bind(this);
-    this.setCurrentTask = this.setCurrentTask.bind(this);
-    this.getCurrentTask = this.getCurrentTask.bind(this);
-    this.filterTasks = this.filterTasks.bind(this);
+    this.setCurrentTodo = this.setCurrentTodo.bind(this);
+    this.getCurrentTodo = this.getCurrentTodo.bind(this);
+    this.filterTodos = this.filterTodos.bind(this);
     this.setFilter = this.setFilter.bind(this);
     this.setQuery = this.setQuery.bind(this);
     this.cancelUpdate = this.cancelUpdate.bind(this);
@@ -48,79 +48,77 @@ class App extends React.Component {
     }
   }
 
-  addTask(newTask) {
-    const currentTasks = this.state.tasks.slice();
-    newTask.id = currentTasks[currentTasks.length - 1].id + 1;
-    this.setState({ tasks: [...currentTasks, newTask] });
+  addTodo(newTodo) {
+    const currentTodos = this.state.todos.slice();
+    newTodo.id = currentTodos[currentTodos.length - 1].id + 1;
+    this.setState({ todos: [...currentTodos, newTodo] });
   }
 
-  updateTask(task) {
-    const tasks = this.state.tasks.slice();
-    tasks.forEach(taskToUpdate => {
-      if (taskToUpdate.id === this.state.currentTask.id) {
-        taskToUpdate.description = task.description;
+  updateTodo(todo) {
+    const todos = this.state.todos.map(todoToUpdate => {
+      if (todoToUpdate.id === this.state.currentTodo.id) {
+        todoToUpdate.description = todo.description;
       }
+      return todoToUpdate;
     });
-    this.setState({ tasks: tasks, mode: "Add", currentTask: null });
+    this.setState({ todos: todos, mode: "Add", currentTodo: null });
   }
 
-  deleteTask(taskID) {
-    const tasks = this.state.tasks.slice();
-    const newTasks = tasks.filter(task => {
-      return task.id !== taskID;
+  deleteTodo(todoID) {
+    const newTodos = this.state.todos.filter(todo => {
+      return todo.id !== todoID;
     });
     if (
-      this.state.currentTask !== null &&
-      this.state.currentTask.id === taskID
+      this.state.currentTodo !== null &&
+      this.state.currentTodo.id === todoID
     ) {
-      this.setState({ tasks: newTasks, mode: "Add", currentTask: null });
+      this.setState({ todos: newTodos, mode: "Add", currentTodo: null });
     } else {
-      this.setState({ tasks: newTasks });
+      this.setState({ todos: newTodos });
     }
   }
 
-  deleteAllTasks() {
-    this.setState({ tasks: [], mode: "Add", currentTask: null });
+  deleteAllTodos() {
+    this.setState({ todos: [], mode: "Add", currentTodo: null });
   }
 
-  markComplete(taskID) {
-    const tasks = this.state.tasks.slice();
-    const targetTask = tasks.find(task => {
-      return task.id === taskID;
+  markComplete(todoID) {
+    const todos = this.state.todos.map(todo => {
+      if (todo.id === todoID) {
+        todo.isComplete = !todo.isComplete;
+      }
+      return todo;
     });
-    targetTask.isComplete = !targetTask.isComplete;
-    this.setState({ tasks });
+    this.setState({ todos });
   }
 
-  setCurrentTask(taskID) {
-    const tasks = this.state.tasks.slice();
-    const currentTask = tasks.find(task => {
-      return task.id === taskID;
+  setCurrentTodo(todoID) {
+    const currentTodo = this.state.todos.find(todo => {
+      return todo.id === todoID;
     });
-    this.setState({ currentTask: currentTask, mode: "Edit" });
+    this.setState({ currentTodo: currentTodo, mode: "Edit" });
   }
 
-  getCurrentTask() {
-    const currentTask = this.state.currentTask;
-    if (currentTask !== null) {
-      return currentTask.description;
+  getCurrentTodo() {
+    const currentTodo = this.state.currentTodo;
+    if (currentTodo !== null) {
+      return currentTodo.description;
     }
     return "";
   }
 
-  filterTasks() {
-    const tasks = this.state.tasks.slice();
-    const searchResults = tasks.filter(task => {
-      return task.description.toLowerCase().includes(this.state.query);
+  filterTodos() {
+    const searchResults = this.state.todos.filter(todo => {
+      return todo.description.toLowerCase().includes(this.state.query);
     });
     if (this.state.filter === "All") {
       return searchResults;
     }
     if (this.state.filter === "Active") {
-      return searchResults.filter(task => !task.isComplete);
+      return searchResults.filter(todo => !todo.isComplete);
     }
     if (this.state.filter === "Completed") {
-      return searchResults.filter(task => task.isComplete);
+      return searchResults.filter(todo => todo.isComplete);
     }
   }
 
@@ -135,26 +133,26 @@ class App extends React.Component {
   }
 
   cancelUpdate() {
-    this.setState({ mode: "Add", currentTask: null });
+    this.setState({ mode: "Add", currentTodo: null });
   }
 
   render() {
     return (
       <div className="container">
-        <AddTask
+        <AddTodoForm
           onKeyUp={this.handleKeyUp}
-          addTask={this.addTask}
-          updateTask={this.updateTask}
+          addTodo={this.addTodo}
+          updateTodo={this.updateTodo}
           mode={this.state.mode}
-          currentTask={this.getCurrentTask()}
+          currentTodo={this.getCurrentTodo()}
           cancelUpdate={this.cancelUpdate}
         />
-        <TaskList
-          tasks={this.filterTasks()}
+        <TodoList
+          todos={this.filterTodos()}
           markComplete={this.markComplete}
-          deleteTask={this.deleteTask}
-          deleteAllTasks={this.deleteAllTasks}
-          setCurrentTask={this.setCurrentTask}
+          deleteTodo={this.deleteTodo}
+          deleteAllTodos={this.deleteAllTodos}
+          setCurrentTodo={this.setCurrentTodo}
           setFilter={this.setFilter}
           filter={this.state.filter}
           setQuery={this.setQuery}

@@ -184,12 +184,12 @@ h3 {
   color: #fff;
 }
 
-/* Tasks */
-.tasks {
+/* Todos */
+.todos {
   margin-bottom: 30px;
 }
 
-.tasks li {
+.todos li {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -197,31 +197,31 @@ h3 {
   padding: 10px 20px;
 }
 
-.tasks li div:first-child {
+.todos li div:first-child {
   flex: 1;
   word-wrap: break-word;
   amargin-right: 5px;
 }
 
-.tasks input[type="checkbox"] {
+.todos input[type="checkbox"] {
   cursor: pointer;
   margin-right: 5px;
 }
 
-.tasks .icon-group svg {
+.todos .icon-group svg {
   cursor: pointer;
   margin-right: 15px;
 }
 
-.tasks .icon-group svg:hover {
+.todos .icon-group svg:hover {
   opacity: 0.8;
 }
 
-.tasks .icon-group > svg:first-child {
+.todos .icon-group > svg:first-child {
   color: var(--tertiary-color);
 }
 
-.tasks .icon-group > svg:last-child {
+.todos .icon-group > svg:last-child {
   color: var(--secondary-color);
 }
 
@@ -263,15 +263,15 @@ h3 {
     width: 100%;
   }
 
-  .tasks li {
+  .todos li {
     flex-wrap: wrap;
   }
 
-  .tasks li div:first-child {
+  .todos li div:first-child {
     flex: auto;
   }
 
-  .tasks .icon-group svg {
+  .todos .icon-group svg {
     margin-right: 10px;
   }
 }

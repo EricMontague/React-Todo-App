@@ -3,7 +3,7 @@ import TextInput from "./TextInput";
 import Button from "./Button";
 import getStyle from "../utilities/styles";
 
-class AddTask extends React.Component {
+class AddTodoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,10 +20,10 @@ class AddTask extends React.Component {
     if (userInput.value !== "") {
       const data = { description: userInput.value };
       if (this.props.mode === "Add") {
-        this.props.addTask(data);
+        this.props.addTodo(data);
         userInput.nextElementSibling.classList.remove("label-raised");
       } else if (this.props.mode === "Edit") {
-        this.props.updateTask(data);
+        this.props.updateTodo(data);
       }
     }
     this.setState({ inputValue: "" });
@@ -40,11 +40,11 @@ class AddTask extends React.Component {
   }
 
   render() {
-    const labelName = this.props.mode === "Add" ? "New Task" : "Current Task";
-    const addBtnText = this.props.mode === "Add" ? "Add Task" : "Update Task";
+    const labelName = this.props.mode === "Add" ? "New Todo" : "Current Todo";
+    const addBtnText = this.props.mode === "Add" ? "Add Todo" : "Update Todo";
     const cancelBtnText = "Cancel";
 
-    const title = this.props.mode === "Add" ? "Add Task" : "Edit Task";
+    const title = this.props.mode === "Add" ? "Add Todo" : "Edit Todo";
     return (
       <div className="card">
         <h3 className="card-title-lg">{title}</h3>
@@ -54,7 +54,7 @@ class AddTask extends React.Component {
             onChange={this.handleChange}
             value={
               this.state.inputValue === ""
-                ? this.props.currentTask
+                ? this.props.currentTodo
                 : this.state.inputValue
             }
             mode={this.props.mode}
@@ -80,4 +80,4 @@ class AddTask extends React.Component {
   }
 }
 
-export default AddTask;
+export default AddTodoForm;
