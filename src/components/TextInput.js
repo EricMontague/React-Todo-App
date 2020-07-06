@@ -5,7 +5,7 @@ function TextInput(props) {
   return (
     <div className="form-group">
       <input
-        id={props.labelName}
+        name={props.inputName}
         type="text"
         value={props.value}
         onChange={props.onChange}

@@ -12,16 +12,16 @@ class App extends React.Component {
       filter: "All",
       query: "",
       todos: [
-        { id: 1, description: "Post on social media", isComplete: false },
+        { id: 1, title: "Post on social media", completed: false },
         {
           id: 2,
-          description: "Turn off the air conditioner.",
-          isComplete: false
+          title: "Turn off the air conditioner.",
+          completed: false
         },
         {
           id: 3,
-          description: "Change the car's engine oil",
-          isComplete: false
+          title: "Change the car's engine oil",
+          completed: false
         }
       ]
     };
@@ -51,14 +51,14 @@ class App extends React.Component {
   addTodo(newTodo) {
     const currentTodos = this.state.todos.slice();
     newTodo.id = currentTodos[currentTodos.length - 1].id + 1;
-    newTodo.isComplete = false;
+    newTodo.completed = false;
     this.setState({ todos: [...currentTodos, newTodo] });
   }
 
   updateTodo(todo) {
     const todos = this.state.todos.map(todoToUpdate => {
       if (todoToUpdate.id === this.state.currentTodo.id) {
-        todoToUpdate.description = todo.description;
+        todoToUpdate.title = todo.title;
       }
       return todoToUpdate;
     });
@@ -86,7 +86,7 @@ class App extends React.Component {
   markComplete(todoID) {
     const todos = this.state.todos.map(todo => {
       if (todo.id === todoID) {
-        todo.isComplete = !todo.isComplete;
+        todo.completed = !todo.completed;
       }
       return todo;
     });
@@ -103,23 +103,23 @@ class App extends React.Component {
   getCurrentTodo() {
     const currentTodo = this.state.currentTodo;
     if (currentTodo !== null) {
-      return currentTodo.description;
+      return currentTodo.title;
     }
     return "";
   }
 
   filterTodos() {
     const searchResults = this.state.todos.filter(todo => {
-      return todo.description.toLowerCase().includes(this.state.query);
+      return todo.title.toLowerCase().includes(this.state.query);
     });
     if (this.state.filter === "All") {
       return searchResults;
     }
     if (this.state.filter === "Active") {
-      return searchResults.filter(todo => !todo.isComplete);
+      return searchResults.filter(todo => !todo.completed);
     }
     if (this.state.filter === "Completed") {
-      return searchResults.filter(todo => todo.isComplete);
+      return searchResults.filter(todo => todo.completed);
     }
   }
 

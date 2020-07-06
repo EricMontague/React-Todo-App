@@ -7,7 +7,7 @@ class AddTodoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: ""
+      title: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -16,31 +16,33 @@ class AddTodoForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const userInput = event.target.elements[0];
-    if (userInput.value !== "") {
-      const data = { description: userInput.value };
+    if (this.state.title !== "") {
+      const data = { title: this.state.title };
       if (this.props.mode === "Add") {
         this.props.addTodo(data);
-        userInput.nextElementSibling.classList.remove("label-raised");
+        event.target.elements["title"].nextElementSibling.classList.remove(
+          "label-raised"
+        );
       } else if (this.props.mode === "Edit") {
         this.props.updateTodo(data);
       }
     }
-    this.setState({ inputValue: "" });
+    this.setState({ title: "" });
   }
 
   handleChange(event) {
-    this.setState({ inputValue: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
     this.props.onKeyUp(event.target);
   }
 
   handleClick(event) {
-    this.setState({ inputValue: "" });
+    this.setState({ title: "" });
     this.props.cancelUpdate();
   }
 
   render() {
     const labelName = this.props.mode === "Add" ? "New Todo" : "Current Todo";
+    const inputName = "title";
     const addBtnText = this.props.mode === "Add" ? "Add Todo" : "Update Todo";
     const cancelBtnText = "Cancel";
 
@@ -51,11 +53,12 @@ class AddTodoForm extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <TextInput
             labelName={labelName}
+            inputName={inputName}
             onChange={this.handleChange}
             value={
-              this.state.inputValue === ""
+              this.state.title === ""
                 ? this.props.currentTodo
-                : this.state.inputValue
+                : this.state.title
             }
             mode={this.props.mode}
           />

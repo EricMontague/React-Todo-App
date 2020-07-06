@@ -5,15 +5,12 @@ import getStyle from "../utilities/styles";
 import PropTypes from "prop-types";
 
 function TodoItem(props) {
-  const { id, description, isComplete } = props.todo;
+  const { id, title, completed } = props.todo;
   return (
     <li>
-      <div className={isComplete ? getStyle("complete") : ""}>
-        <Checkbox
-          checked={isComplete}
-          onChange={() => props.markComplete(id)}
-        />
-        {description}
+      <div className={completed ? getStyle("complete") : ""}>
+        <Checkbox checked={completed} onChange={() => props.markComplete(id)} />
+        {title}
       </div>
       <div className="icon-group">
         <FontAwesomeIcon
@@ -32,8 +29,8 @@ function TodoItem(props) {
 TodoItem.propTypes = {
   todo: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    isComplete: PropTypes.bool.isRequired
+    title: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired
   }),
   markComplete: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
