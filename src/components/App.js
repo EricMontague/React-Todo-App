@@ -1,7 +1,11 @@
 import React from "react";
-import AddTodoForm from "./AddTodoForm";
-import TodoList from "./TodoList";
-import getStyle from "../utilities/styles";
+import TodoApp from "./TodoApp";
+
+function App() {
+  return <TodoApp />;
+}
+
+export default App;
 
 class App extends React.Component {
   constructor(props) {
@@ -10,20 +14,7 @@ class App extends React.Component {
       currentTodo: null,
       mode: "Add",
       filter: "All",
-      query: "",
-      todos: [
-        { id: 1, title: "Post on social media", completed: false },
-        {
-          id: 2,
-          title: "Turn off the air conditioner.",
-          completed: false
-        },
-        {
-          id: 3,
-          title: "Change the car's engine oil",
-          completed: false
-        }
-      ]
+      query: ""
     };
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.addTodo = this.addTodo.bind(this);
@@ -163,5 +154,3 @@ class App extends React.Component {
     );
   }
 }
-
-export default App;

@@ -1,10 +1,15 @@
 import React from "react";
 
-function SearchBox(props) {
+function SearchBox({ handleBlur, handleChange }) {
   return (
     <div className="form-group">
-      <input type="text" onKeyUp={props.onKeyUp} />
-      <label>{props.labelName}</label>
+      <input
+        name="Search"
+        type="text"
+        onBlur={handleBlur}
+        onChange={handleChange}
+      />
+      <label>Search</label>
     </div>
   );
 }

@@ -1,29 +1,56 @@
 import React from "react";
 import SearchBox from "./SearchBox";
-import CardFooter from "./CardFooter";
+import Footer from "./Footer";
 import TodoItem from "./TodoItem";
+import useInputState from "../hooks/useInputState";
 
-function TodoList(props) {
-  const labelName = "Search";
+function TodoList({
+  todos,
+  deleteTodo,
+  deleteAllTodos,
+  toggleTodoStatus,
+  setQuery,
+  setFilter,
+  filter,
+  setSelectedTodo,
+  toggleFormState,
+  selectedTodo
+}) {
+  const [value, handleChange, handleBlur] = useInputState("");
   return (
     <div className="card">
       <h3 className="card-title-lg">Todo List</h3>
-      <SearchBox labelName={labelName} onKeyUp={props.setQuery} />
+      <SearchBox
+        handleChange={() => {
+          handleChange();
+          setQuery(value);
+        }}
+        handleBlur={handleBlur}
+      />
       <ul className="todos">
-        {props.todos.map(todo => (
+        {todos.map(todo => (
           <TodoItem
             key={todo.id}
             todo={todo}
-            markComplete={props.markComplete}
-            deleteTodo={props.deleteTodo}
-            setCurrentTodo={props.setCurrentTodo}
+            toggleTodoStatus={toggleTodoStatus}
+            handleEditClick={() => {
+              setSelectedTodo(todo);
+              toggleFormState(true);
+            }}
+            handleDeleteClick={() => {
+              deleteTodo(id);
+              if (selectedTodo.id === id) {
+                setSelectedTodo(null);
+                toggleFormState(false);
+              }
+            }}
           />
         ))}
       </ul>
-      <CardFooter
-        filter={props.filter}
-        setFilter={props.setFilter}
-        onClick={props.deleteAllTodos}
+      <Footer
+        filter={filter}
+        setFilter={setFilter}
+        handleClick={deleteAllTodos}
       />
     </div>
   );

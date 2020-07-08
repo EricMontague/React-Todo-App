@@ -76,7 +76,7 @@ h3 {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.cancel-btn {
+.m-left {
   margin-left: 10px;
 }
 
@@ -200,7 +200,7 @@ h3 {
 .todos li div:first-child {
   flex: 1;
   word-wrap: break-word;
-  amargin-right: 5px;
+  margin-right: 5px;
 }
 
 .todos input[type="checkbox"] {
@@ -225,7 +225,7 @@ h3 {
   color: var(--secondary-color);
 }
 
-.complete {
+.completed {
   text-decoration: line-through;
 }
 
@@ -235,7 +235,7 @@ h3 {
     width: 100%;
     margin-bottom: 10px;
   }
-  .cancel-btn {
+  .btn.m-left {
     margin: 0;
   }
 

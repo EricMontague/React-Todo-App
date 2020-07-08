@@ -1,7 +1,6 @@
 import React from "react";
-import getStyle from "../utilities/styles";
 
-function Filter(props) {
+function Filter({ filter, setFilter }) {
   const options = ["All", "Active", "Completed"];
   return (
     <ul className="filters">
@@ -9,11 +8,9 @@ function Filter(props) {
         <li key={option}>
           <button
             className={
-              getStyle("filterBtn") +
-              " " +
-              (props.filter === option ? getStyle("selected") : "")
+              "btn btn-transparent " + (filter === option ? "selected" : "")
             }
-            onClick={() => props.setFilter(option)}
+            onClick={() => setFilter(option)}
           >
             {option}
           </button>
