@@ -1,8 +1,10 @@
 import React from "react";
 import useInputState from "../hooks/useInputState";
 
-function EditTodoForm({ handleClick, editTodo, selectedTodo }) {
-  const [value, handleChange, handleBlur, clear] = useInputState(selectedTodo);
+function EditTodoForm({ handleClick, editTodo, todoToEdit }) {
+  const [value, handleChange, handleBlur, clear] = useInputState(
+    todoToEdit.title
+  );
   return (
     <div className="card">
       <h3 className="card-title-lg">Edit Todo</h3>

@@ -2,25 +2,15 @@ import React from "react";
 import AddTodoForm from "./AddTodoForm";
 import EditTodoForm from "./EditTodoForm";
 
-function TodoFormWrapper({
-  addTodo,
-  editTodo,
-  selectedTodo,
-  isEditing,
-  toggleFormState,
-  setSelectedTodo
-}) {
-  if (!isEditing) {
+function TodoFormWrapper({ addTodo, editTodo, todoToEdit, clearEditState }) {
+  if (todoToEdit === null) {
     return <AddTodoForm addTodo={addTodo} />;
   } else {
     return (
       <EditTodoForm
-        handleClick={() => {
-          toggleFormState(false);
-          setSelectedTodo(null);
-        }}
+        handleClick={clearEditState}
         editTodo={editTodo}
-        selectedTodo={selectedTodo}
+        todoToEdit={todoToEdit}
       />
     );
   }
