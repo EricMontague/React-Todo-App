@@ -5,7 +5,7 @@ import TodoItem from "./TodoItem";
 import useInputState from "../hooks/useInputState";
 import useQueryState from "../hooks/useQueryState";
 import useFilterState from "../hooks/useFilterState";
-import { applyFilter, search } from "../utilities/filter";
+import { applyFilter, search } from "../services/filter";
 
 function TodoList({
   todos,
@@ -19,6 +19,7 @@ function TodoList({
   const [query, setQuery] = useQueryState("");
   const [filter, setFilter] = useFilterState("All");
   const filteredTodos = search(applyFilter(todos, filter), query);
+
   return (
     <div className="card">
       <h3 className="card-title-lg">Todo List</h3>
