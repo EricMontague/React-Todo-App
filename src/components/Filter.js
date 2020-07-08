@@ -1,6 +1,7 @@
 import React from "react";
 
-function Filter({ filter, setFilter }) {
+function Filter({ handleChange }) {
+  const [filter, setFilter] = useFilterState("All");
   const options = ["All", "Active", "Completed"];
   return (
     <ul className="filters">
@@ -10,7 +11,10 @@ function Filter({ filter, setFilter }) {
             className={
               "btn btn-transparent " + (filter === option ? "selected" : "")
             }
-            onClick={() => setFilter(option)}
+            onClick={() => {
+              setFilter(option);
+              handleChange(filter);
+            }}
           >
             {option}
           </button>

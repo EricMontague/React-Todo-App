@@ -3,9 +3,7 @@ import SearchBox from "./SearchBox";
 import Footer from "./Footer";
 import TodoItem from "./TodoItem";
 import useInputState from "../hooks/useInputState";
-import useQueryState from "../hooks/useQueryState";
-import useFilterState from "../hooks/useFilterState";
-import { applyFilter, search } from "../services/filter";
+import useFilteredTodoState from "../hooks/useFilteredTodosState";
 
 function TodoList({
   todos,
@@ -16,9 +14,7 @@ function TodoList({
   todoToEdit
 }) {
   const [value, handleChange, handleBlur] = useInputState("");
-  const [query, setQuery] = useQueryState("");
-  const [filter, setFilter] = useFilterState("All");
-  const filteredTodos = search(applyFilter(todos, filter), query);
+  const [filteredTodos, applyFilter, search] = useFilteredTodoState(todos);
 
   return (
     <div className="card">
@@ -26,7 +22,7 @@ function TodoList({
       <SearchBox
         handleChange={() => {
           handleChange();
-          setQuery(value);
+          search(value);
         }}
         handleBlur={handleBlur}
       />
@@ -46,11 +42,7 @@ function TodoList({
           />
         ))}
       </ul>
-      <Footer
-        filter={filter}
-        setFilter={setFilter}
-        handleClick={deleteAllTodos}
-      />
+      <Footer applyFilter={applyFilter} handleClick={deleteAllTodos} />
     </div>
   );
 }
