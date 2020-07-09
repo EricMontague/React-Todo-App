@@ -1,7 +1,8 @@
 import React from "react";
+import Alert from "./Alert";
 import SearchBox from "./SearchBox";
 import Footer from "./Footer";
-import TodoItem from "./TodoItem";
+import FilteredList from "./FilteredList";
 import useInputState from "../hooks/useInputState";
 import { applyFilter, search } from "../services/filter";
 import useFilterState from "../hooks/useFilterState";
@@ -17,29 +18,33 @@ function TodoList({
   const [value, handleChange, handleBlur] = useInputState("");
   const [filter, changeFilter] = useFilterState("All");
   const filteredTodos = search(applyFilter(todos, filter), value);
+  let message;
+  if (todos.length === 0) {
+    message =
+      "You have no more items remaining. Fill out the form above to add more.";
+  } else if (filteredTodos.length === 0) {
+    message = "No items matched your search criteria.";
+  }
 
   return (
     <div className="card">
       <h3 className="card-title-lg">Todo List</h3>
       <SearchBox handleChange={handleChange} handleBlur={handleBlur} />
-      <ul className="todos">
-        {filteredTodos.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            toggleTodoStatus={toggleTodoStatus}
-            handleEditClick={() => setTodoToEdit(todo)}
-            handleDeleteClick={() => {
-              deleteTodo(todo.id);
-              // Clear the edit state if the deleted todo is currently
-              // showing in the form
-              if (todoToEdit !== null && todoToEdit.id === todo.id) {
-                setTodoToEdit(null);
-              }
-            }}
-          />
-        ))}
-      </ul>
+      {(() => {
+        if (message) {
+          return <Alert message={message} classes="alert-light" />;
+        } else {
+          return (
+            <FilteredList
+              filteredTodos={filteredTodos}
+              deleteTodo={deleteTodo}
+              toggleTodoStatus={toggleTodoStatus}
+              setTodoToEdit={setTodoToEdit}
+              todoToEdit={todoToEdit}
+            />
+          );
+        }
+      })()}
       <Footer
         filter={filter}
         changeFilter={changeFilter}
