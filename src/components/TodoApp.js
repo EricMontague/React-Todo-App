@@ -1,6 +1,6 @@
 import React from "react";
 import initialTodos from "../data";
-import TodoFormWrapper from "./TodoFormWrapper";
+import TodoFormControl from "./TodoFormControl";
 import TodoList from "./TodoList";
 import useTodoState from "../hooks/useTodoState";
 import useEditState from "../hooks/useEditState";
@@ -14,22 +14,21 @@ function TodoApp() {
     deleteAllTodos,
     toggleTodoStatus
   } = useTodoState(initialTodos);
-  const [todoToEdit, setEditState] = useEditState(null);
-
+  const [todoToEdit, setTodoToEdit] = useEditState(null);
   return (
     <div className="container">
-      <TodoFormWrapper
+      <TodoFormControl
         addTodo={addTodo}
         editTodo={editTodo}
         todoToEdit={todoToEdit}
-        clearEditState={() => setEditState(null)}
+        clearEditState={() => setTodoToEdit(null)}
       />
       <TodoList
         todos={todos}
         deleteTodo={deleteTodo}
         deleteAllTodos={deleteAllTodos}
         toggleTodoStatus={toggleTodoStatus}
-        setEditState={setEditState}
+        setTodoToEdit={setTodoToEdit}
         todoToEdit={todoToEdit}
       />
     </div>

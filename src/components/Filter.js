@@ -1,8 +1,8 @@
 import React from "react";
+import { getOptions } from "../services/filter";
 
-function Filter({ handleChange }) {
-  const [filter, setFilter] = useFilterState("All");
-  const options = ["All", "Active", "Completed"];
+function Filter({ filter, handleChange }) {
+  const options = getOptions();
   return (
     <ul className="filters">
       {options.map(option => (
@@ -11,10 +11,7 @@ function Filter({ handleChange }) {
             className={
               "btn btn-transparent " + (filter === option ? "selected" : "")
             }
-            onClick={() => {
-              setFilter(option);
-              handleChange(filter);
-            }}
+            onClick={() => handleChange(option)}
           >
             {option}
           </button>

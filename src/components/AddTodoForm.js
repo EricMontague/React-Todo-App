@@ -10,8 +10,10 @@ function AddTodoForm({ addTodo }) {
       <form
         onSubmit={event => {
           event.preventDefault();
-          addTodo(value);
-          clear();
+          if (value !== "") {
+            addTodo(value);
+            clear();
+          }
         }}
       >
         <TextInput

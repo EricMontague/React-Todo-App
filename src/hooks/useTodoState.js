@@ -1,5 +1,5 @@
-import { useLocalStorageState } from "./useLocalStorageState";
-import uuid from "uuid/v4";
+import useLocalStorageState from "./useLocalStorageState";
+import { v4 as uuidv4 } from "uuid";
 
 function useTodoState(initialState) {
   const [todos, setTodos] = useLocalStorageState("todos", initialState);
@@ -9,17 +9,17 @@ function useTodoState(initialState) {
     addTodo: newTodoTitle => {
       setTodos([
         ...todos,
-        { id: uuid(), title: newTodoTitle, completed: false }
+        { id: uuidv4(), title: newTodoTitle, completed: false }
       ]);
     },
-    editTodo: (todoToEdit, newTitle) => {
+    editTodo: (todoId, newTitle) => {
       const updatedTodos = todos.map(todo => {
-        return todo.id === todoToEdit.id ? { ...todo, title: newTitle } : todo;
+        return todo.id === todoId ? { ...todo, title: newTitle } : todo;
       });
       setTodos(updatedTodos);
     },
-    deleteTodo: todoToDelete => {
-      const updatedTodos = todos.filter(todo => todo.id !== todoToDelete.id);
+    deleteTodo: todoId => {
+      const updatedTodos = todos.filter(todo => todo.id !== todoId);
       setTodos(updatedTodos);
     },
     deleteAllTodos: () => {

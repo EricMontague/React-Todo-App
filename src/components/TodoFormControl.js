@@ -2,13 +2,13 @@ import React from "react";
 import AddTodoForm from "./AddTodoForm";
 import EditTodoForm from "./EditTodoForm";
 
-function TodoFormWrapper({ addTodo, editTodo, todoToEdit, clearEditState }) {
+function TodoFormControl({ addTodo, editTodo, todoToEdit, clearEditState }) {
   if (todoToEdit === null) {
     return <AddTodoForm addTodo={addTodo} />;
   } else {
     return (
       <EditTodoForm
-        handleClick={clearEditState}
+        clearEditState={clearEditState}
         editTodo={editTodo}
         todoToEdit={todoToEdit}
       />
@@ -16,4 +16,4 @@ function TodoFormWrapper({ addTodo, editTodo, todoToEdit, clearEditState }) {
   }
 }
 
-export default TodoFormWrapper;
+export default TodoFormControl;

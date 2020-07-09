@@ -1,6 +1,13 @@
 import React from "react";
 
-function TextInput({ handleChange, handleBlur, value, inputName, labelName }) {
+function TextInput({
+  handleChange,
+  handleBlur,
+  value,
+  inputName,
+  labelName,
+  labelClassName
+}) {
   return (
     <div className="form-group">
       <input
@@ -10,7 +17,9 @@ function TextInput({ handleChange, handleBlur, value, inputName, labelName }) {
         onBlur={handleBlur}
         onChange={handleChange}
       />
-      <label>{labelName}</label>
+      <label className={labelClassName !== null ? labelClassName : ""}>
+        {labelName}
+      </label>
     </div>
   );
 }

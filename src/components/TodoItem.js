@@ -32,12 +32,13 @@ function TodoItem({
 
 TodoItem.propTypes = {
   todo: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired
   }),
-  toggleStatus: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired
+  toggleTodoStatus: PropTypes.func.isRequired,
+  handleEditClick: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired
 };
 
 export default TodoItem;

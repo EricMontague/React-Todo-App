@@ -1,8 +1,8 @@
 import React from "react";
 
-function Checkbox({ handleChange, completed }) {
+function Checkbox({ handleChange, checked }) {
   return (
-    <input checked={completed} type="checkbox" onChange={handleChange}></input>
+    <input checked={checked} type="checkbox" onChange={handleChange}></input>
   );
 }
 
