@@ -216,6 +216,7 @@ h3 {
 .todos li div:first-child {
   flex: 1;
   word-wrap: break-word;
+  overflow: hidden;
   margin-right: 5px;
 }
 
