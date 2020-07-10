@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function TextInput({
   handleChange,
@@ -23,5 +24,14 @@ function TextInput({
     </div>
   );
 }
+
+TextInput.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  inputName: PropTypes.string.isRequired,
+  labelName: PropTypes.string.isRequired,
+  labelClassName: PropTypes.string // Optional
+};
 
 export default TextInput;

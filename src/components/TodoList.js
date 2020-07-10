@@ -6,6 +6,7 @@ import FilteredList from "./FilteredList";
 import useInputState from "../hooks/useInputState";
 import { applyFilter, search } from "../services/filter";
 import useFilterState from "../hooks/useFilterState";
+import PropTypes from "prop-types";
 
 function TodoList({
   todos,
@@ -32,7 +33,7 @@ function TodoList({
       <SearchBox handleChange={handleChange} handleBlur={handleBlur} />
       {(() => {
         if (message) {
-          return <Alert message={message} classes="alert-light" />;
+          return <Alert message={message} bgColor="alert-light" />;
         } else {
           return (
             <FilteredList
@@ -58,5 +59,18 @@ function TodoList({
     </div>
   );
 }
+
+TodoList.propTypes = {
+  todos: PropTypes.array.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  deleteAllTodos: PropTypes.func.isRequired,
+  toggleTodoStatus: PropTypes.func.isRequired,
+  setTodoToEdit: PropTypes.func.isRequired,
+  todoToEdit: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired
+  })
+};
 
 export default TodoList;

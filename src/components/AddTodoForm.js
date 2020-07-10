@@ -1,6 +1,7 @@
 import React from "react";
 import useInputState from "../hooks/useInputState";
 import TextInput from "./TextInput";
+import PropTypes from "prop-types";
 
 function AddTodoForm({ addTodo }) {
   const [value, handleChange, handleBlur, clear] = useInputState("");
@@ -30,5 +31,9 @@ function AddTodoForm({ addTodo }) {
     </div>
   );
 }
+
+AddTodoForm.propTypes = {
+  addTodo: PropTypes.func.isRequired
+};
 
 export default AddTodoForm;

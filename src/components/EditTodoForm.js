@@ -1,6 +1,7 @@
 import React from "react";
 import TextInput from "./TextInput";
 import useInputState from "../hooks/useInputState";
+import PropTypes from "prop-types";
 
 function EditTodoForm({ clearEditState, editTodo, todoToEdit }) {
   const [value, handleChange, handleBlur, clear] = useInputState("");
@@ -40,5 +41,15 @@ function EditTodoForm({ clearEditState, editTodo, todoToEdit }) {
     </div>
   );
 }
+
+EditTodoForm.propTypes = {
+  clearEditState: PropTypes.func.isRequired,
+  editTodo: PropTypes.func.isRequired,
+  todoToEdit: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired
+  })
+};
 
 export default EditTodoForm;

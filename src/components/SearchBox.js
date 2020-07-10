@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function SearchBox({ handleBlur, handleChange }) {
   return (
@@ -13,5 +14,10 @@ function SearchBox({ handleBlur, handleChange }) {
     </div>
   );
 }
+
+SearchBox.propTypes = {
+  handleBlur: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired
+};
 
 export default SearchBox;

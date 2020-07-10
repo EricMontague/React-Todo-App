@@ -1,5 +1,6 @@
 import React from "react";
 import Filter from "./Filter";
+import PropTypes from "prop-types";
 
 function Footer({ filter, changeFilter, handleClick }) {
   return (
@@ -12,5 +13,11 @@ function Footer({ filter, changeFilter, handleClick }) {
     </footer>
   );
 }
+
+Footer.propTypes = {
+  filter: PropTypes.string.isRequired,
+  changeFilter: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired
+};
 
 export default Footer;

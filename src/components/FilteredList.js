@@ -1,5 +1,6 @@
 import React from "react";
 import TodoItem from "./TodoItem";
+import PropTypes from "prop-types";
 
 function FilteredList({
   filteredTodos,
@@ -29,5 +30,17 @@ function FilteredList({
     </ul>
   );
 }
+
+FilteredList.propTypes = {
+  filteredTodos: PropTypes.array.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  toggleTodoStatus: PropTypes.func.isRequired,
+  setTodoToEdit: PropTypes.func.isRequired,
+  todoToEdit: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired
+  })
+};
 
 export default FilteredList;

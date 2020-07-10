@@ -1,5 +1,6 @@
 import React from "react";
 import { getOptions } from "../services/filter";
+import PropTypes from "prop-types";
 
 function Filter({ filter, handleChange }) {
   const options = getOptions();
@@ -20,5 +21,10 @@ function Filter({ filter, handleChange }) {
     </ul>
   );
 }
+
+Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired
+};
 
 export default Filter;
